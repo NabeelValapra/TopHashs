@@ -18,6 +18,9 @@ def get_search_tweets(search_phrase, tweets_per_request=200, no_of_request=5):
                               count=tweets_per_request,
                               result_type='popular')]
 
+    if not results[-1]['statuses']:
+        return []
+
     for _ in range(no_of_request-1):
         last_tweet_id = results[-1]['statuses'][-1]['id_str']
 
@@ -39,6 +42,9 @@ def get_top_hashtags(search_phrase):
             if hashtag['text'] not in tops.keys():
                 tops[hashtag['text']] = 0
             tops[hashtag['text']] += 1
+
+    if not tops:
+        return None
 
     sorted_hashes = sorted(tops.items(), key=operator.itemgetter(1), reverse=True)
     return json.dumps(sorted_hashes)
