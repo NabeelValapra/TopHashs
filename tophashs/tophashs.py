@@ -35,9 +35,9 @@ def get_search_tweets(search_phrase, tweets_per_request=200, no_of_request=5):
            yield tweet
 
 
-def get_top_hashtags(search_phrase):
+def get_top_hashtags(tweets):
     tops = {}
-    for tweet in get_search_tweets(search_phrase):
+    for tweet in tweets:
         for hashtag in tweet['entities']['hashtags']:
             if hashtag['text'] not in tops.keys():
                 tops[hashtag['text']] = 0
