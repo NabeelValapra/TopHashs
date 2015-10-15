@@ -50,4 +50,6 @@ def get_top_hashtags(tweets):
         return None
 
     sorted_hashes = sorted(tops.items(), key=operator.itemgetter(1), reverse=True)
-    return json.dumps(sorted_hashes)
+
+    top_hashtags = sorted_hashes[0:15]
+    return json.dumps(top_hashtags)
