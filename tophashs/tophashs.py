@@ -16,7 +16,7 @@ twitter = Twython(TWITTER_CONSUMER_KEY,
 def get_search_tweets(search_phrase, tweets_per_request=200, no_of_request=5):
     results = [twitter.search(q=search_phrase,
                               count=tweets_per_request,
-                              result_type='popular')]
+                              result_type='recent')]
 
     if not results[-1]['statuses']:
         return []
@@ -30,9 +30,12 @@ def get_search_tweets(search_phrase, tweets_per_request=200, no_of_request=5):
                 count=tweets_per_request,
                 max_id=last_tweet_id))
 
+    tweets = []
     for result in results:
         for tweet in result['statuses']:
-           yield tweet
+            tweets.append(tweet)
+
+    return tweets
 
 
 def get_top_hashtags(tweets):
