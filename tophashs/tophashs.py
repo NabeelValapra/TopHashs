@@ -13,7 +13,7 @@ twitter = Twython(TWITTER_CONSUMER_KEY,
                   OAUTH_TOKEN_SECRET)
 
 
-def get_search_tweets(search_phrase, tweets_per_request=200, no_of_request=5):
+def search_tweets(search_phrase, tweets_per_request=200, no_of_request=5):
     results = [twitter.search(q=search_phrase,
                               count=tweets_per_request,
                               result_type='recent')]
@@ -38,7 +38,7 @@ def get_search_tweets(search_phrase, tweets_per_request=200, no_of_request=5):
     return tweets
 
 
-def get_top_hashtags(tweets):
+def get_top_hashtags(tweets, get_top=10):
     tops = {}
     for tweet in tweets:
         for hashtag in tweet['entities']['hashtags']:
@@ -51,5 +51,5 @@ def get_top_hashtags(tweets):
 
     sorted_hashes = sorted(tops.items(), key=operator.itemgetter(1), reverse=True)
 
-    top_hashtags = sorted_hashes[0:15]
-    return json.dumps(top_hashtags)
+    top_hashtags = sorted_hashes[0:get_top]
+    return json.dumps(top_hashtags.keys())

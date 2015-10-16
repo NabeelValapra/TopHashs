@@ -1,1 +1,1 @@
-from .tophashs import (get_search_tweets, get_top_hashtags)
+from .tophashs import (search_tweets, get_top_hashtags)
